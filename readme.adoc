@@ -1,0 +1,9 @@
+= Examples for possible improvements for custom assertions for AssertJ
+
+This tiny repository contains some examples for possible improvements for custom assertions with AssertJ.
+
+All work is related to the GitHub discussion at https://github.com/orgs/assertj/discussions/2679
+
+== Issues for Custom Assertions
+
+* link:src/main/java/com/example/assertj/reusing/stacktracefiltering/readme.adoc[Filtering of stacktrace elements]

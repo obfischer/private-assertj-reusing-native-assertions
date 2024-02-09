@@ -1,0 +1,43 @@
+= Stacktrace Filtering for Assertions
+
+This examples demonstrates the difference in the produced stacktraces for a failed assertion between a custom assertion and a native usage of assertj.
+
+== Stacktrace for Custom Assert
+
+The failing test case `domainobjecttest#usingcustomassertions` produces the following output:
+
+[source,text,linenums]
+expected: "Richy"
+ but was: "Susi"
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at com.example.assertj.reusing.simple.DomainAssert.hasName(DomainAssert.java:21)
+	at com.example.assertj.reusing.simple.DomainObjectTest.usingCustomAssertions(DomainObjectTest.java:17)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+
+Line 8 contains the stack element for the custom assertion.
+
+== Stacktrace for Native AssertJ Usage
+
+The failing test case `DomainObjectTest#usingNativeAssertJ` produces a similar output, but it does not contain any stackelement for the packages belonging to AssertJ:
+
+[source,text,linenums]
+expected: "Richy"
+ but was: "Susi"
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at com.example.assertj.reusing.simple.DomainObjectTest.usingNativeAssertJ(DomainObjectTest.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+
+
+== Desired Behavior
+
+*As* the author of a custom assertion, +
+*I* would like to be able to remove any stacktrace element belonging to my custom assertion, +
+*to* help the person executing tests using my custom assertion to locate the codeline with the failing assertion.
